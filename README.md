@@ -218,4 +218,20 @@ typedef struct {
 
 该结构体包含2个域成员，其中，`HDmap`为输出的HD map；`vehicleTraj`为车辆行驶的轨迹坐标。
 
+```C++
+typedef struct {
+  emxArray_real_T *bigImg;
+  struct8_T ref;
+} struct7_T;
+#endif /* typedef_struct7_T */
+```
+
+输出参数`HDmap`子类型仍然为结构体类型，也包含2个域成员，其中`bigImg`为对应的像素大图像；`ref`为对应此大图像的参考空间坐标系。
+
 关于上面输入输出参数结构体类型的二级或更多级的域成员申明可以参考[`constructWorldMap_types.h`](./constructSrc/constructWorldMap_types.h)头文件申明。
+
+Note:demo中示例数据存放在:"\\yunpan02\豪恩汽电\豪恩汽电研发中心\临时文件夹\CXX\binAndimgFromSimOutMat"
+
+---
+
+另外，关于直接使用4副已经矫正好的图作为参数输入，稍后时间我会整理接口会及时发布于此，敬请期待。
