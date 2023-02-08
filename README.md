@@ -35,15 +35,23 @@ class BuildHDMap {
 
 结构体`m_birdsEye360CaliParameter`包含2个域，分别为`birdsEye`、`tforms`,参数解释如下层次结构：
 
-- `birdsEye`的索引0,1,2,3分别代表`front`,`left`,`back`,`right`方向的相机的**内外参**结构体。
+- `birdsEye`的索引0,1,2,3分别代表`front`,`left`,`back`,`right`方向的相机的**元数据和内外参**结构体。
   - `OutputView`的索引0,1,2,3分别代表`xmin`,`xmax`,`ymin`,`ymax`方向的相机的**可视距离范围**结构体。
   - `ImageSize`的索引0,1分别代表单应变换到以`front`为基准的**图像高和宽**结构体。
-  - `Sensor`代表相机**外参**的结构体。
+  - `Sensor`代表相机**内外参**的结构体，层次结构如下。
     - `Height`相机挂载高度。
     - `Pitch` 相机俯仰角。
     - `Yaw` 相机航向角。
     - `Roll` 相机翻滚角。
     - `SensorLocation`相机挂载以`front`为基准的**水平位置坐标**结构体，索引0,1分别代表`x`,`y`坐标。
+    - `WorldUnits`单位："meters"。
+    - `Intrinsics`针孔相机内参结构体，层次结构如下。
+      - `FocalLength`相机焦距，索引0,1分别代表fx,fy，单位像素;
+      - `PrincipalPoint`相机主点，索引0,1分别代表cx,cy，单位像素；
+      - `ImageSize`相机标定时刻使用图像的大小，所以0,1分别代表高，宽，单位像素；
+      - `RadialDistortion`相机径向畸变系数,取[k1,k2]，默认为[0,0];
+      - `TangentialDistortion`相机切向畸变系数，取[p1,p2]，默认为[0,0];
+      - `Skew`相机扭曲因子,默认为0。
 - `tforms`的索引0,1,2,3分别代表`front`,`left`,`back`,`right`方向的相机到front的**单应变换矩阵**结构体。
   - `A`代表3×3的单应矩阵，C++中以`double A[9]`形式保持在`tforms`结构体中。
 
