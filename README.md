@@ -264,8 +264,16 @@ make install
 修改根目录中的`CmakeLists.txt`中的第12行指出自己`OpenCV`安装路径，比如我windows上安装路径为`set(OpenCV_DIR "D:/opencv_4_4_0/opencv/build")`或者系统环境变量指定此`OpenCV_DIR`定义。
 
 接下来使用Cmake-GUI构建如下图：
-![deploy1](./images/depoly1.jpg)
-选择好自己的路径和编译器版本。点Configure和Generate就可以生成对应VC的项目工程了。我用的是VS2019,打开生成的sln文件，如下图进行编译并运行。
+
+<table>
+    <tr>
+        <td ><center><img src="images/depoly1.jpg" >图1  Cmake configure </center></td>
+        <td ><center><img src="images/depoly2.jpg"  >图2 Cmake configure</center></td>
+    </tr>
+</table>
+
+然后选择好自己的路径和编译器版本，点Configure和Generate就可以生成对应VC的项目工程了。我用的是VS2019,打开生成的sln文件，如下图进行编译并运行。
+
 ![deploy1](./images/depoly3.jpg)
 
 VS 工程跑通建图结果见"\\yunpan02\豪恩汽电\豪恩汽电研发中心\临时文件夹\CXX\binAndimgFromSimOutMat\cpp_result"
