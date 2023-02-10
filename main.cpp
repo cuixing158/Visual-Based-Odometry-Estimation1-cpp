@@ -1,41 +1,37 @@
-#include "common.hpp"
-#include "BuildHDMap.hpp"
-#include "c_cpp_utils/spdlog/spdlog.h"
+#include "constructSrc/common.hpp"
+#include "constructSrc/BuildHDMap.hpp"
 #include "opencv2/opencv.hpp"
-#include "c_cpp_utils/path.h"
-#include "constructWorldMap.h"
-#include "constructWorldMap_emxAPI.h"
-#include "constructWorldMap_types.h"
-#include "rt_nonfinite.h"
+#include "constructSrc/constructWorldMap.h"
+#include "constructSrc/constructWorldMap_emxAPI.h"
+#include "constructSrc/constructWorldMap_types.h"
+#include "constructSrc/rt_nonfinite.h"
 #include <string.h>
 
-#include <gperftools/profiler.h>
 #include <iostream>
 #include <fstream>
 
-bool mycomp(std::string path1, std::string path2) {
-    std::string fileName1 = filesystem::path(path1).filenameNoExt();
-    std::string fileName2 = filesystem::path(path2).filenameNoExt();
-    return (std::stoi(fileName1) < std::stoi(fileName2));
-}
 
 int main(int argc, char *argv[]) {
-    std::cout << CV_VERSION << std::endl;
-    std::string imgSrcDir = "/opt_disk2/rd22946/my_data/binAndimgFromSimOutMat";  //"~/my_data/binAndimgFromSimOutMat";
-    std::string orderImages[4] = {"imgFrontSurround", "imgLeftSurround", "imgRearSurround", "imgRightSurround"};
-    std::string sensorFile = "/opt_disk2/rd22946/my_data/binAndimgFromSimOutMat/sensorData.csv";
-    std::string mapXFile = "/opt_disk2/rd22946/my_data/binAndimgFromSimOutMat/mapX.csv";
-    std::string mapYFile = "/opt_disk2/rd22946/my_data/binAndimgFromSimOutMat/mapY.csv";
-    size_t numCamera = 4, numFrames = 1186;
-
-    // 读取数据
-    filesystem::path imgSrcPath = filesystem::path(imgSrcDir);
+    std::string sensorFile = "E:/AllDataAndModels/surround_fisheye_sim_images/underParkingLotImages20220728/sensorData.csv";
+    std::string mapXFile = "D:/vs_files/buildMap/Project2/mapX.csv";
+    std::string mapYFile = "D:/vs_files/buildMap/Project2/mapY.csv";
+    const size_t numCamera = 4, numFrames = 1186;
     std::vector<std::string> imageFileNames[numCamera];
-    for (size_t i = 0; i < numCamera; i++) {
-        filesystem::path currPath = imgSrcPath / filesystem::path(orderImages[i]);
-        size_t numImgs = filesystem::getFullNames(currPath, imageFileNames[i], ".png");
-        std::sort(imageFileNames[i].begin(), imageFileNames[i].end(), mycomp);
+
+    // 读取图像路径数据
+    std::string imagesPath[4] = { "../front.csv" ,"../left.csv" ,"../back.csv" ,"../right.csv" };
+    for (size_t i = 0; i < numCamera; i++)
+    {
+        std::ifstream inFile(imagesPath[i], std::ios::in);
+        if (!inFile) {
+            std::cerr << " 打开文件失败！ " << std::endl;
+        }
+        std::string lineStr;
+        while (std::getline(inFile, lineStr)) {
+            imageFileNames[i].push_back(lineStr);
+        }
     }
+ 
     cv::Mat sensorData = readCSV(sensorFile);
     sensorData = sensorData.rowRange(1, sensorData.rows);
     cv::Mat mapX = readCSV(mapXFile);
@@ -53,7 +49,7 @@ int main(int argc, char *argv[]) {
     static struct6_T outHDMap;       //t对应constructWorldMap主函数输出outputStruct
 
     // 主循建图图图
-    for (size_t i = 0; i < numFrames; i++) {
+    for (size_t i = 155; i < numFrames; i++) {
         inputArgsPose.currFrontBasePose[0] = sensorData.at<double>(i, 2);
         inputArgsPose.currFrontBasePose[1] = sensorData.at<double>(i, 3);
         inputArgsPose.currFrontBasePose[2] = sensorData.at<double>(i, 4);
@@ -68,23 +64,14 @@ int main(int argc, char *argv[]) {
         outHDMap = buildObj.Run(inputArgsPose);
 
         emxArray_real_T *bigImg = outHDMap.HDmap.bigImg;
-        cv::Mat matBigImg;
+        cv::Mat matBigImg,matTraj;
         convertEmxToMat(bigImg, matBigImg);
+        
         emxArray_real_T *vehicleTraj = outHDMap.vehicleTraj;
+        convertEmxToMat(vehicleTraj, matTraj);
 
-        // show results
-        spdlog::info("Current frame number:{},bigImg size H*W*C: {}×{}×{}", i, bigImg->size[0], bigImg->size[1], bigImg->size[2]);
-        filesystem::path savePath = filesystem::path("results");
-        if (!savePath.exists()) {
-            filesystem::create_directory(savePath);
-        }
-        cv::imwrite(savePath.make_absolute().str() + "/" + std::to_string(i) + ".jpg", matBigImg);
-
-        // cv::imshow("", matBigImg);
-        // int key = cv::waitKey(1);
-        // if (key == 27) {
-        //     break;
-        // }
+        // save results
+        cv::imwrite(std::to_string(i) + ".jpg", matBigImg);
     }
     return 0;
 }

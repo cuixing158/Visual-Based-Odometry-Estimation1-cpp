@@ -4,6 +4,8 @@
 #include "constructWorldMap_emxAPI.h"
 #include "constructWorldMap_types.h"
 #include "rt_nonfinite.h"
+#include "rtGetInf.h"
+#include "rtGetNaN.h"
 #include <string.h>
 #include <iostream>
 #include <fstream>

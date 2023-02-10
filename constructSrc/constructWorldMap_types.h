@@ -4,9 +4,9 @@
  * @details        : for path build map algorithms
  * @author         : cuixingxing
  * @email          : xingxing.cui@long-horn.com
- * @date           : 01-Nov-2022 17:14:32
+ * @date           : 09-Feb-2023 16:58:33
  * @version        : V1.0.0
- * @copyright      : Copyright (C) 2022 Long-Horn Inc.All rights reserved.
+ * @copyright      : Copyright (C) 2023 Long-Horn Inc.All rights reserved.
  */
 
 #ifndef CONSTRUCTWORLDMAP_TYPES_H
@@ -138,6 +138,43 @@ struct emxArray_boolean_T {
 typedef struct emxArray_boolean_T emxArray_boolean_T;
 #endif /* typedef_emxArray_boolean_T */
 
+#ifndef struct_emxArray_uint8_T
+#define struct_emxArray_uint8_T
+struct emxArray_uint8_T {
+  unsigned char *data;
+  int *size;
+  int allocatedSize;
+  int numDimensions;
+  bool canFreeData;
+};
+#endif /* struct_emxArray_uint8_T */
+#ifndef typedef_emxArray_uint8_T
+#define typedef_emxArray_uint8_T
+typedef struct emxArray_uint8_T emxArray_uint8_T;
+#endif /* typedef_emxArray_uint8_T */
+
+#ifndef typedef_binaryFeatures
+#define typedef_binaryFeatures
+typedef struct {
+  emxArray_uint8_T *Features;
+} binaryFeatures;
+#endif /* typedef_binaryFeatures */
+
+#ifndef struct_emxArray_real32_T
+#define struct_emxArray_real32_T
+struct emxArray_real32_T {
+  float *data;
+  int *size;
+  int allocatedSize;
+  int numDimensions;
+  bool canFreeData;
+};
+#endif /* struct_emxArray_real32_T */
+#ifndef typedef_emxArray_real32_T
+#define typedef_emxArray_real32_T
+typedef struct emxArray_real32_T emxArray_real32_T;
+#endif /* typedef_emxArray_real32_T */
+
 #ifndef typedef_struct7_T
 #define typedef_struct7_T
 typedef struct {
@@ -176,31 +213,6 @@ struct emxArray_int32_T {
 typedef struct emxArray_int32_T emxArray_int32_T;
 #endif /* typedef_emxArray_int32_T */
 
-#ifndef struct_emxArray_real32_T
-#define struct_emxArray_real32_T
-struct emxArray_real32_T {
-  float *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  bool canFreeData;
-};
-#endif /* struct_emxArray_real32_T */
-#ifndef typedef_emxArray_real32_T
-#define typedef_emxArray_real32_T
-typedef struct emxArray_real32_T emxArray_real32_T;
-#endif /* typedef_emxArray_real32_T */
-
-#ifndef typedef_ORBPoints
-#define typedef_ORBPoints
-typedef struct {
-  emxArray_real32_T *pLocation;
-  emxArray_real32_T *pMetric;
-  emxArray_real32_T *pScale;
-  emxArray_real32_T *pOrientation;
-} ORBPoints;
-#endif /* typedef_ORBPoints */
-
 #ifndef struct_emxArray_uint32_T
 #define struct_emxArray_uint32_T
 struct emxArray_uint32_T {
@@ -216,20 +228,18 @@ struct emxArray_uint32_T {
 typedef struct emxArray_uint32_T emxArray_uint32_T;
 #endif /* typedef_emxArray_uint32_T */
 
-#ifndef struct_emxArray_uint8_T
-#define struct_emxArray_uint8_T
-struct emxArray_uint8_T {
-  unsigned char *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  bool canFreeData;
-};
-#endif /* struct_emxArray_uint8_T */
-#ifndef typedef_emxArray_uint8_T
-#define typedef_emxArray_uint8_T
-typedef struct emxArray_uint8_T emxArray_uint8_T;
-#endif /* typedef_emxArray_uint8_T */
+#ifndef typedef_ORBPoints
+#define typedef_ORBPoints
+typedef struct {
+  emxArray_real32_T *pLocation;
+  emxArray_real32_T *pMetric;
+  unsigned char pNumLevels;
+  float pScaleFactor;
+  int pPatchSize;
+  emxArray_real32_T *pScale;
+  emxArray_real32_T *pOrientation;
+} ORBPoints;
+#endif /* typedef_ORBPoints */
 
 #ifndef struct_emxArray_int8_T
 #define struct_emxArray_int8_T

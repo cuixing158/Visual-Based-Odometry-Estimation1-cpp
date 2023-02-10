@@ -4,9 +4,9 @@
  * @details        : for path build map algorithms
  * @author         : cuixingxing
  * @email          : xingxing.cui@long-horn.com
- * @date           : 01-Nov-2022 17:14:32
+ * @date           : 09-Feb-2023 16:58:33
  * @version        : V1.0.0
- * @copyright      : Copyright (C) 2022 Long-Horn Inc.All rights reserved.
+ * @copyright      : Copyright (C) 2023 Long-Horn Inc.All rights reserved.
  */
 
 /** @include file    : Include Files */
@@ -357,17 +357,14 @@ void emxFreeStruct_ORBPoints(ORBPoints *pStruct)
 }
 
 /**
- * @fn             : emxFreeStruct_ORBPoints1
+ * @fn             : emxFreeStruct_binaryFeatures
  * @brief          :
- * @param          : ORBPoints *pStruct
+ * @param          : binaryFeatures *pStruct
  * @return         : void
  */
-void emxFreeStruct_ORBPoints1(ORBPoints *pStruct)
+void emxFreeStruct_binaryFeatures(binaryFeatures *pStruct)
 {
-  emxFree_real32_T(&pStruct->pLocation);
-  emxFree_real32_T(&pStruct->pMetric);
-  emxFree_real32_T(&pStruct->pScale);
-  emxFree_real32_T(&pStruct->pOrientation);
+  emxFree_uint8_T(&pStruct->Features);
 }
 
 /**
@@ -573,17 +570,14 @@ void emxInitStruct_ORBPoints(ORBPoints *pStruct)
 }
 
 /**
- * @fn             : emxInitStruct_ORBPoints1
+ * @fn             : emxInitStruct_binaryFeatures
  * @brief          :
- * @param          : ORBPoints *pStruct
+ * @param          : binaryFeatures *pStruct
  * @return         : void
  */
-void emxInitStruct_ORBPoints1(ORBPoints *pStruct)
+void emxInitStruct_binaryFeatures(binaryFeatures *pStruct)
 {
-  emxInit_real32_T(&pStruct->pLocation, 2);
-  emxInit_real32_T(&pStruct->pMetric, 1);
-  emxInit_real32_T(&pStruct->pScale, 1);
-  emxInit_real32_T(&pStruct->pOrientation, 1);
+  emxInit_uint8_T(&pStruct->Features);
 }
 
 /**
@@ -749,20 +743,21 @@ void emxInit_real_T(emxArray_real_T **pEmxArray, int numDimensions)
  * @fn             : emxInit_uint32_T
  * @brief          :
  * @param          : emxArray_uint32_T **pEmxArray
+ *                   int numDimensions
  * @return         : void
  */
-void emxInit_uint32_T(emxArray_uint32_T **pEmxArray)
+void emxInit_uint32_T(emxArray_uint32_T **pEmxArray, int numDimensions)
 {
   emxArray_uint32_T *emxArray;
   int i;
   *pEmxArray = (emxArray_uint32_T *)malloc(sizeof(emxArray_uint32_T));
   emxArray = *pEmxArray;
   emxArray->data = (unsigned int *)NULL;
-  emxArray->numDimensions = 2;
-  emxArray->size = (int *)malloc(sizeof(int) * 2U);
+  emxArray->numDimensions = numDimensions;
+  emxArray->size = (int *)malloc(sizeof(int) * (unsigned int)numDimensions);
   emxArray->allocatedSize = 0;
   emxArray->canFreeData = true;
-  for (i = 0; i < 2; i++) {
+  for (i = 0; i < numDimensions; i++) {
     emxArray->size[i] = 0;
   }
 }

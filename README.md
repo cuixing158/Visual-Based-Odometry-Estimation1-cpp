@@ -3,6 +3,8 @@
 
 2023.2.6 崔星星首次记录
 
+最新修改于2023.2.10
+
 >用于复现此项目分支[matlab_branch](http://autogit.long-horn.com:3000/Algorithm_public/SLAM_VS_PROJECT/src/matlab_branch)的C++工程代码,输入输出结果可以保证达到一致的运行结果。根据年前部分工作，做简要的头文件描述接口用法，后续会存在变动可能，更新会在此库进行。
 
 为便于同事直接移植使用，本C++程序只依赖OpenCV，下面只有建图过程的代码，通过`CMake`可编译适用于各个平台的项目文件。关于闭环检测、因子图优化的C++代码我后续会集成进来。
@@ -239,6 +241,34 @@ typedef struct {
 关于上面输入输出参数结构体类型的二级或更多级的域成员申明可以参考[`constructWorldMap_types.h`](./constructSrc/constructWorldMap_types.h)头文件申明。
 
 Note:demo中示例数据存放在:"\\yunpan02\豪恩汽电\豪恩汽电研发中心\临时文件夹\CXX\binAndimgFromSimOutMat"
+
+## 如何配置使用
+
+适合各类平台和编译器支持！
+
+- linux上:
+
+```bash
+git clone http://autogit.long-horn.com:3000/Algorithm_public/SLAM_VS_PROJECT.git
+cd slam_vs_project
+git branch depoly_cpp
+mkdir build
+cd build
+cmake .. 
+make install
+```
+
+- windows上：
+先从`http://autogit.long-horn.com:3000/Algorithm_public/SLAM_VS_PROJECT.git`下载好对应`depoly_cpp`源码压缩包并解压。
+
+修改根目录中的`CmakeLists.txt`中的第12行指出自己`OpenCV`安装路径，比如我windows上安装路径为`set(OpenCV_DIR "D:/opencv_4_4_0/opencv/build")`或者系统环境变量指定此`OpenCV_DIR`定义。
+
+接下来使用Cmake-GUI构建如下图：
+![deploy1](./images/depoly1.jpg)
+选择好自己的路径和编译器版本。点Configure和Generate就可以生成对应VC的项目工程了。我用的是VS2019,打开生成的sln文件，如下图进行编译并运行。
+![deploy1](./images/depoly3.jpg)
+
+VS 工程跑通建图结果见"\\yunpan02\豪恩汽电\豪恩汽电研发中心\临时文件夹\CXX\binAndimgFromSimOutMat\cpp_result"
 
 ---
 

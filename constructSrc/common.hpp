@@ -11,8 +11,7 @@
 inline cv::Mat readCSV(std::string csvFile) {
     std::ifstream inFile(csvFile, std::ios::in);
     if (!inFile) {
-        std::cout << "打开文件失败！" << std::endl;
-        exit(1);
+        std::cerr << " 打开文件失败！ " << std::endl;
     }
     std::vector<std::vector<double> > all_data;
     std::string lineStr;
@@ -67,13 +66,20 @@ inline void convertCVToMatrix(cv::Mat &srcImg, double dst[18483444]) {
 inline void convertEmxToMat(emxArray_real_T *bigImg, cv::Mat &matBigImg) {
     int rows = bigImg->size[0];
     int cols = bigImg->size[1];
-    int channels = bigImg->size[2];
+    int channels = bigImg->numDimensions;
     size_t elems = rows * cols;
 
-    cv::Mat matR = cv::Mat(cols, rows, CV_64FC1, bigImg->data);
-    cv::Mat matG = cv::Mat(cols, rows, CV_64FC1, bigImg->data + elems);
-    cv::Mat matB = cv::Mat(cols, rows, CV_64FC1, bigImg->data + 2 * elems);
-    std::vector<cv::Mat> matBGR = {matB.t(), matG.t(), matR.t()};
-    cv::merge(matBGR, matBigImg);
-    matBigImg.convertTo(matBigImg, CV_8UC3, 255);
+    if (channels == 3)
+    { 
+        cv::Mat matR = cv::Mat(cols, rows, CV_64FC1, bigImg->data);
+        cv::Mat matG = cv::Mat(cols, rows, CV_64FC1, bigImg->data + elems);
+        cv::Mat matB = cv::Mat(cols, rows, CV_64FC1, bigImg->data + 2 * elems);
+        std::vector<cv::Mat> matBGR = { matB.t(), matG.t(), matR.t() };
+        cv::merge(matBGR, matBigImg);
+        matBigImg.convertTo(matBigImg, CV_8UC3, 255);
+    }else{
+        
+        cv::Mat matD = cv::Mat(cols, rows, CV_64FC1, bigImg->data);
+        matBigImg = matD.clone().t();
+    }
 }

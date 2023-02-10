@@ -4,9 +4,9 @@
  * @details        : for path build map algorithms
  * @author         : cuixingxing
  * @email          : xingxing.cui@long-horn.com
- * @date           : 01-Nov-2022 17:14:32
+ * @date           : 09-Feb-2023 16:58:33
  * @version        : V1.0.0
- * @copyright      : Copyright (C) 2022 Long-Horn Inc.All rights reserved.
+ * @copyright      : Copyright (C) 2023 Long-Horn Inc.All rights reserved.
  */
 
 #ifndef CONSTRUCTWORLDMAP_EMXAPI_H

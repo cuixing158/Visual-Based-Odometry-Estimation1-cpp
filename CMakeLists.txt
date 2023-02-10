@@ -1,7 +1,7 @@
 # set(CMake_DIR)
 cmake_minimum_required(VERSION 3.10)
-set(CMAKE_C_COMPILER "/usr/bin/gcc") # "D:/mingw64_v8/bin/x86_64-w64-mingw32-gcc.exe"
-set(CMAKE_CXX_COMPILER "/usr/bin/g++") # "D:/mingw64_v8/bin/x86_64-w64-mingw32-g++.exe"
+#set(CMAKE_C_COMPILER "D:/mingw64_v8/bin/x86_64-w64-mingw32-gcc.exe") # "D:/mingw64_v8/bin/x86_64-w64-mingw32-gcc.exe"
+#set(CMAKE_CXX_COMPILER "D:/mingw64_v8/bin/x86_64-w64-mingw32-g++.exe") # "D:/mingw64_v8/bin/x86_64-w64-mingw32-g++.exe"
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC") # https://blog.csdn.net/angelazhao620/article/details/123711331
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
@@ -9,7 +9,7 @@ project(CONSTRUCTMAP VERSION 1.0)
 message(STATUS "Use CMAKE version:${CMAKE_VERSION}")
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
-set(OpenCV_DIR "/home/cuixingxing/opencv4_6_0/lib/cmake/opencv4")
+set(OpenCV_DIR "D:/opencv_4_4_0/opencv/build") # "/home/cuixingxing/opencv4_6_0/lib/cmake/opencv4"
 find_package(OpenCV REQUIRED)
 
 if(OpenCV_FOUND)
