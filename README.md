@@ -259,6 +259,7 @@ make install
 ```
 
 - windows上：
+
 先从`http://autogit.long-horn.com:3000/Algorithm_public/SLAM_VS_PROJECT.git`下载好对应`depoly_cpp`源码压缩包并解压。
 
 修改根目录中的`CmakeLists.txt`中的第12行指出自己`OpenCV`安装路径，比如我windows上安装路径为`set(OpenCV_DIR "D:/opencv_4_4_0/opencv/build")`或者系统环境变量指定此`OpenCV_DIR`定义。
