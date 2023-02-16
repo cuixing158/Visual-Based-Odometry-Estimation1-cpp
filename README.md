@@ -3,11 +3,19 @@
 
 2023.2.6 崔星星首次记录
 
-最新修改于2023.2.10
+最新修改于2023.2.16
 
 >用于复现此项目分支[matlab_branch](http://autogit.long-horn.com:3000/Algorithm_public/SLAM_VS_PROJECT/src/matlab_branch)的C++工程代码,输入输出结果可以保证达到一致的运行结果。根据年前部分工作，做简要的头文件描述接口用法，后续会存在变动可能，更新会在此库进行。
 
 为便于同事直接移植使用，本C++程序只依赖OpenCV，下面只有建图过程的代码，通过`CMake`可编译适用于各个平台的项目文件。关于闭环检测、因子图优化的C++代码我后续会集成进来。
+
+## Requirements
+
+- OpenCV 4.x
+
+- C++ 11 support compiler
+
+无特定平台和编译器要求，如果您使用`OpenCV3.x`,需要适当修改源码。
 
 ## 建图主接口API
 
