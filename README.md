@@ -3,7 +3,7 @@
 
 2023.2.6 崔星星首次记录
 
-最新修改于2023.2.16
+最新修改于2023.2.17
 
 >用于复现此项目分支[matlab_branch](http://autogit.long-horn.com:3000/Algorithm_public/SLAM_VS_PROJECT/src/matlab_branch)的C++工程代码,输入输出结果可以保证达到一致的运行结果。根据年前部分工作，做简要的头文件描述接口用法，后续会存在变动可能，更新会在此库进行。
 
@@ -16,6 +16,10 @@
 - C++ 11 support compiler
 
 无特定平台和编译器要求，如果您使用`OpenCV3.x`,需要适当修改源码。
+
+## 进展
+
+- 2023.2.17 已经对DBOW3进行了C++代码生成进行了测试，测试编译接口通过，即将发布新版本。更多仓库今日同时更新，请参阅[matlab_branch](http://autogit.long-horn.com:3000/Algorithm_public/SLAM_VS_PROJECT/src/matlab_branch)分支,[DBOW3_branch](http://autogit.long-horn.com:3000/Algorithm_public/SLAM_VS_PROJECT/src/DBWO3_branch)分支代码。欢迎PR,提Issue!
 
 ## 建图主接口API
 
