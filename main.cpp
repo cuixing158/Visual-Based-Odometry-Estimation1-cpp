@@ -340,7 +340,7 @@ void main_constructWorldMap(buildMapping::HDMapping *instancePtr) {
     // Initialize function input argument 'inputArgs'.
     // Initialize function input argument 'inputOutputStruct'.
 
-    std::string imagePathList = "/opt_disk2/rd22946/matlab_works/buildMapping/test/imagePathList.txt";
+    std::string imagePathList = "./data/preSavedData/imagePathList.txt";
     std::ifstream inFile(imagePathList, std::ios::in);
     if (!inFile) {
         std::cerr << " 打开文件失败！ " << std::endl;

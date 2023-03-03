@@ -3,7 +3,7 @@
 
 2023.2.6 崔星星首次记录
 
-最新修改于2023.2.28
+最新修改于2023.3.3
 
 >用于复现此项目分支[matlab_branch](http://autogit.long-horn.com:3000/algorithm_Dev/buildMapping)的C++工程代码,输入输出结果可以保证达到一致的运行结果。支持在Ti/win/linux等平台运行。
 
@@ -15,12 +15,12 @@
 
 - C++ 11 support compiler
 
-无特定平台和编译器要求，如果您使用`OpenCV3.x`,需要适当修改源码。源码全部放在"\\yunpan02\豪恩汽电\豪恩汽电研发中心\临时文件夹\CXX\buildMap.zip"
+无特定平台和编译器要求，如果您使用`OpenCV3.x`,需要适当修改源码。
 
 ## 进展
 
 - 2023.2.17 已经对DBOW3进行了C++代码生成进行了测试，测试编译接口通过，即将发布新版本。
-- 2023.2.28 已完成闭环检测，图优化C++集成,在VS2019环境下验证成功。
+- 2023.2.28 已完成闭环检测，图优化C++集成,在VS2019、ubuntu环境下均验证成功。
 
 ## 建图主接口API
 
@@ -80,6 +80,8 @@ while 循环不断取全景拼接图
 
 由于上述主类中的数据类型是自动C++代码工具生成的，同事较难以理解含义，只需对入口函数类型掌握即可。
 
+**输入数据必须确保正确！！！**
+
 - 输入参数`struct0_T`类型定义如下：
 
 ```C++
@@ -114,7 +116,11 @@ struct struct2_T {
 
 输出参数`HDmap`子类型仍然为结构体类型，也包含2个域成员，其中`bigImg`为对应的像素大图像；`ref`为对应此大图像的参考空间坐标系。
 
-Note:demo中示例数据存放在:"\\yunpan02\豪恩汽电\豪恩汽电研发中心\临时文件夹\CXX\map_R_resize"
+## Notes
+
+- demo中示例数据存放在:"\\yunpan02\豪恩汽电\豪恩汽电研发中心\临时文件夹\CXX\map_R_resize"
+
+- 对于闭环过程中词袋特征文件、后期姿态图优化的全局图像拼接使用的数据文件需要**事先默认保存到当前工程根目录**，即这2个文件分别位于：`./data/preSavedData/database.yml.gz`、`./data/preSavedData/imagePathList.txt`
 
 ## 如何配置使用
 
@@ -123,9 +129,8 @@ Note:demo中示例数据存放在:"\\yunpan02\豪恩汽电\豪恩汽电研发中
 - linux上:
 
 ```bash
-git clone http://autogit.long-horn.com:3000/Algorithm_public/SLAM_VS_PROJECT.git
-cd slam_vs_project
-git branch depoly_cpp
+git clone http://autogit.long-horn.com:3000/algorithm_Dev/buildMappingCPP.git
+cd buildMappingCPP
 mkdir build
 cd build
 cmake .. 
@@ -134,7 +139,7 @@ make install
 
 - windows上：
 
-先从`http://autogit.long-horn.com:3000/Algorithm_public/SLAM_VS_PROJECT.git`下载好对应`depoly_cpp`源码压缩包并解压。
+先从`http://autogit.long-horn.com:3000/algorithm_Dev/buildMappingCPP.git`下载好对应`main`分支源码压缩包并解压。
 
 修改根目录中的`CmakeLists.txt`中的第12行指出自己`OpenCV`安装路径，比如我windows上安装路径为`set(OpenCV_DIR "D:/opencv_4_4_0/opencv/build")`或者系统环境变量指定此`OpenCV_DIR`定义。
 

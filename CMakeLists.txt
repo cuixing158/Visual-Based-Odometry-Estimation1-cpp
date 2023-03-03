@@ -66,7 +66,7 @@ if(OpenMP_FOUND)
     target_link_libraries(constructWorldMap INTERFACE OpenMP::OpenMP_CXX)
 endif()
 
-set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR})
+set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/install)
 set(EXECUTABLE_OUTPUT_PATH  ${PROJECT_SOURCE_DIR})
 install(TARGETS  constructWorldMap ocv CXSparse dbow3
     RUNTIME DESTINATION bin
