@@ -1,9 +1,9 @@
 
 # 建图C++程序
 
-2023.2.6 崔星星首次记录
+[2023-02-06](date:"ymd") 崔星星首次记录
 
-最新修改于2023.3.3
+最新修改于[2023-03-15](date:"ymd")
 
 >用于复现此项目分支[matlab_branch](http://autogit.long-horn.com:3000/algorithm_Dev/buildMapping)的C++工程代码,输入输出结果可以保证达到一致的运行结果。支持在Ti/win/linux等平台运行。
 
@@ -15,9 +15,9 @@
 
 - C++ 11 support compiler
 
-无特定平台和编译器要求，如果您使用`OpenCV3.x`,需要适当修改源码。
+无特定平台和编译器要求，如果您使用`OpenCV3.x`,需要适当修改源码(如`cv::ORB::ScoreType`为4.x的枚举类型，改为`int`类型即可)。
 
-## 进展
+## 部署更新记录
 
 - 2023.2.17 已经对DBOW3进行了C++代码生成进行了测试，测试编译接口通过，即将发布新版本。
 - 2023.2.28 已完成闭环检测，图优化C++集成,在VS2019、ubuntu环境下均验证成功。
@@ -93,24 +93,25 @@ struct struct0_T {
 };
 ```
 
-该结构体包含3个域成员，其中，`undistortImage`存储为1副全景拼接图(鸟瞰图，确保已经是无畸变)；`currFrontBasePose`存储当前位姿[$x$,$y$,$\theta$]；`isuseGT`是否使用接收第三方里程计。
+该结构体包含3个域成员，其中，`undistortImage`存储为1副全景$480\times640$（$H \times W$）大小单通道拼接图(鸟瞰图，确保已经是无畸变)；`currFrontBasePose`存储当前位姿[$x$,$y$,$\theta$]；`isuseGT`是否使用接收第三方里程计。
 
 - 返回参数类型`struct1_T`类型定义如下：
 
 ```C++
 struct struct1_T {
-  struct2_T HDmap;
-  ::coder::array<double, 2U> vehiclePoses;
-  bool isOver;
+  struct2_T HDmap; // 输出建图图像和参考坐标系
+  ::coder::array<double, 2U> vehiclePoses; // 累计输出车辆位姿数据[x,y,theta]
+  double cumDist; // 输出累计行驶距离，单位：米
+  bool isOver; // 是否建图完毕
 };
 ```
 
-该结构体包含3个域成员，其中，`HDmap`为输出的HD map;`vehiclePoses`为车辆行驶的轨迹坐标;`isOver`标志是否姿态图已优化完毕。
+该结构体包含4个域成员，其中，`HDmap`为输出的HD map;`vehiclePoses`为车辆行驶的轨迹坐标，其为$m\times3$大小矩阵，$m$为累计当前帧数，每行形如$[x,y,\theta]$，$x$,$y$为以第一幅图像坐标基准的像素坐标，$\theta$为车辆姿态角度，单位弧度;`cumDist`为累计行驶距离；`isOver`标志是否姿态图已优化完毕。
 
 ```C++
 struct struct2_T {
-  ::coder::array<unsigned char, 2U> bigImg;
-  struct3_T ref;
+  ::coder::array<unsigned char, 2U> bigImg; // 建图像素图像
+  struct3_T ref; // 参考坐标系，始终是以第一副图像像素坐标系为基准
 };
 ```
 
@@ -163,3 +164,4 @@ VS 工程跑通建图结果见"\\yunpan02\豪恩汽电\豪恩汽电研发中心\
 对全景图跑通结果截图如下：
 
 ![vs2019_hdmap](images/vs2019_hdmap.png)
+![ubuntu_hdmap](images/HDMapImg.png)
