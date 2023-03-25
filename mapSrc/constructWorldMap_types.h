@@ -3,6 +3,7 @@
 
 #include "rtwtypes.h"
 #include "coder_array.h"
+#include "opencvAPI.h"
 #define MAX_THREADS omp_get_max_threads()
 
 namespace buildMapping {
@@ -17,25 +18,21 @@ struct struct0_T {
   bool isuseGT;
 };
 
-struct struct3_T {
-  double XWorldLimits[2];
-  double YWorldLimits[2];
-  double ImageSize[2];
-};
-
 struct struct2_T {
   ::coder::array<unsigned char, 2U> bigImg;
-  struct3_T ref;
+  imref2d_ ref;
 };
 
 struct struct1_T {
   struct2_T HDmap;
   ::coder::array<double, 2U> vehiclePoses;
+  double cumDist;
+  double pixelExtentInWorldXY;
   bool isOver;
 };
 
-struct remapAndResampleGeneric2d {
-  float inputImage[307200];
+struct imresize {
+  unsigned char out[76800];
 };
 
 struct helperDetectAndExtractFeatures {
@@ -44,19 +41,12 @@ struct helperDetectAndExtractFeatures {
 
 struct fuseOptimizeHDMap {
   unsigned char currImg[307200];
-  bool temp[307200];
-};
-
-struct constructWorldMap {
-  bool bv[307200];
 };
 
 struct constructWorldMapStackData {
-  remapAndResampleGeneric2d f0;
-  remapAndResampleGeneric2d f1;
-  helperDetectAndExtractFeatures f2;
-  fuseOptimizeHDMap f3;
-  constructWorldMap f4;
+  imresize f0;
+  helperDetectAndExtractFeatures f1;
+  fuseOptimizeHDMap f2;
   constructWorldMapPersistentData *pd;
 };
 

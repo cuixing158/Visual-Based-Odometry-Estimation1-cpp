@@ -44,12 +44,12 @@ int main(int, char **) {
 
         // 建图
         double t1 = (double)cv::getTickCount();
-        classInstance->b_constructWorldMap(&inputArgs, &inputOutputStruct);
+        classInstance->constructWorldMap(&inputArgs, &inputOutputStruct);
         double t = ((double)cv::getTickCount() - t1) / cv::getTickFrequency();
 
         cv::Mat HDMapImg;
         convertToMat(inputOutputStruct.HDmap.bigImg.data(), inputOutputStruct.HDmap.bigImg.size(0), inputOutputStruct.HDmap.bigImg.size(1), 1, HDMapImg);
-        std::cout << "num:" << num << ",it take time:" << t << std::endl;
+        std::cout << "num:" << num << ",elapsed seconds:" << t << std::endl;
 
         cv::imwrite("./results/" + std::to_string(num++) + ".jpg", HDMapImg);
         //cv::imshow("HDmap", HDMapImg);

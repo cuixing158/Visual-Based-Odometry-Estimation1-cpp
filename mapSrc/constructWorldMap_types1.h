@@ -10,18 +10,17 @@
 
 namespace buildMapping {
 struct constructWorldMapPersistentData {
-  coder::robotics::core::internal::BlockMatrix gobj_2[3];
+  coder::robotics::core::internal::BlockMatrix gobj_1[3];
   coder::binaryFeatures preFeatures;
   bool preFeatures_not_empty;
   ::coder::array<float, 2U> prePoints;
   coder::rigidtform2d preRelTform;
-  bool BW[307200];
+  bool BW[19200];
   bool BW_not_empty;
   coder::rigidtform2d previousImgPose;
   coder::rigidtform2d initViclePtPose;
   coder::rigidtform2d prePoseNodes;
   coder::poseGraph pg;
-  double cumDist;
   double xLimitGlobal[2];
   double yLimitGlobal[2];
   bool isFirst;
@@ -32,8 +31,6 @@ struct constructWorldMapPersistentData {
   double freq;
   bool freq_not_empty;
   FILE *eml_openfiles[20];
-  coder::visioncodegen::AlphaBlender alphablend;
-  bool alphablend_not_empty;
 };
 
 } // namespace buildMapping

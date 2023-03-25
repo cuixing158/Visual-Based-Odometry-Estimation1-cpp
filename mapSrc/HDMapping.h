@@ -13,8 +13,8 @@ class HDMapping {
 public:
   HDMapping();
   ~HDMapping();
-  void b_constructWorldMap(const struct0_T *inputArgs,
-                           struct1_T *inputOutputStruct);
+  void constructWorldMap(const struct0_T *inputArgs,
+                         struct1_T *inputOutputStruct);
   constructWorldMapStackData *getStackData();
 
 private:

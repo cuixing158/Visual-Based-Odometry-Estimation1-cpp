@@ -71,16 +71,6 @@ public:
   bool __MaxNumNodes_AssignmentSentinel;
 };
 
-namespace visioncodegen {
-class AlphaBlender {
-public:
-  AlphaBlender();
-  ~AlphaBlender();
-  bool matlabCodegenIsDeleted;
-  int isInitialized;
-};
-
-} // namespace visioncodegen
 } // namespace coder
 } // namespace buildMapping
 
