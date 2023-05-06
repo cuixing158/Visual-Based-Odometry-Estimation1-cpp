@@ -3,7 +3,7 @@
 
 [2023-02-06](date:"ymd") 崔星星首次记录
 
-最新修改于[2023-03-15](date:"ymd")
+最新修改于[2023-05-06](date:"ymd")
 
 >用于复现此项目分支[matlab_branch](http://autogit.long-horn.com:3000/algorithm_Dev/buildMapping)的C++工程代码,输入输出结果可以保证达到一致的运行结果。支持在Ti/win/linux等平台运行。
 
@@ -21,8 +21,30 @@
 
 - 2023.2.17 已经对DBOW3进行了C++代码生成进行了测试，测试编译接口通过，即将发布新版本。
 - 2023.2.28 已完成闭环检测，图优化C++集成,在VS2019、ubuntu环境下均验证成功。
+- 2023.5.6 已完成C接口函数封装。
 
 ## 建图主接口API
+
+2023.5.6 根据徐庆华文档及SDK要求为C语言接口，再结合2D-SLAM算法实际需要，已经改用为下述函数接口。
+
+``` C
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+extern struct HDMappingWrapper* InitInstance();
+
+extern void buildMap(HDMappingWrapper* pOrbSlamHandle, cv::Mat& bevImage);
+
+extern void UnInitHDMapping(struct HDMappingWrapper* pOrbSlam3Handle);
+
+#ifdef __cplusplus
+};
+#endif
+```
+
+---
+**下述为原有的C++类型接口**
 
 `HDMapping`类为主类，接口较简单，一个默认构造函数`HDMapping()`和一个`b_constructWorldMap()`函数。对应项目中头文件`HDMapping.h`。
 

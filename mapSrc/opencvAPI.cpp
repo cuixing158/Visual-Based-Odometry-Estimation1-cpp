@@ -12,15 +12,18 @@
 
 #include "opencvAPI.h"
 
+template void convertCVToMatrix<unsigned char>(cv::Mat &, int, int, int, unsigned char *);
+template void convertCVToMatrix<bool>(cv::Mat &, int, int, int, bool *);
+template void convertCVToMatrix<double>(cv::Mat &, int, int, int, double *);
 template void imwarp2<bool>(bool const *, int, int, int, double *, imref2d_ *, bool *);
 template void imwarp2<unsigned char>(unsigned char const *, int, int, int, double *, imref2d_ *, unsigned char *);
-template void alphaBlendOpenCV<bool, unsigned char>(unsigned char *, int, int, int, unsigned char const *, bool const *, int, int, int, int, int, unsigned char *);
-template void alphaBlendOpenCV<unsigned char, unsigned char>(unsigned char *, int, int, int, unsigned char const *, unsigned char const *, int, int, int, int, int, unsigned char *);
+template void alphaBlendOpenCV<bool, unsigned char>(const unsigned char *, int, int, int, unsigned char const *, bool const *, int, int, int, int, int, unsigned char *);
+template void alphaBlendOpenCV<unsigned char, unsigned char>(const unsigned char *, int, int, int, unsigned char const *, unsigned char const *, int, int, int, int, int, unsigned char *);
+template void alphaBlendOpenCV<const unsigned char, unsigned char>(const unsigned char *, int, int, int, const unsigned char *, const unsigned char *, int, int, int, int, int, unsigned char *);
 
-// 对应OpenCV的cv::Mat转MATLAB uint8类型或logical图像
+// 对应OpenCV的cv::Mat转MATLAB uint8类型或logical或者double图像
 template <typename T>
 void convertCVToMatrix(cv::Mat &srcImg, int rows, int cols, int channels, T *dst) {
-    CV_Assert(srcImg.type() == CV_8UC1 || srcImg.type() == CV_8UC3);
     size_t elems = rows * cols;
     if (channels == 3) {
         cv::Mat channels[3];
@@ -54,13 +57,13 @@ void convertToMatContinues(const T *inImg, int rows, int cols, int channels, cv:
 
 // 对应MATLAB uint8类型或者logical图像转cv::Mat，图像在内存中不连续
 void convertToMat(const unsigned char inImg[], int rows, int cols, int channels, cv::Mat &matBigImg) {
-    size_t elems = (size_t)rows * cols;
+    int elems = rows * cols;
     if (channels == 3) {
         matBigImg = cv::Mat(rows, cols, CV_8UC3, cv::Scalar::all(0));
 
-        for (size_t i = 0; i < rows; i++) {
+        for (int i = 0; i < rows; i++) {
             cv::Vec3b *data = matBigImg.ptr<cv::Vec3b>(i);
-            for (size_t j = 0; j < cols; j++) {
+            for (int j = 0; j < cols; j++) {
                 data[j][2] = (uchar)inImg[i + rows * j];
                 data[j][1] = (uchar)inImg[i + rows * j + elems];
                 data[j][0] = (uchar)inImg[i + rows * j + 2 * elems];
@@ -69,9 +72,9 @@ void convertToMat(const unsigned char inImg[], int rows, int cols, int channels,
     } else {
         matBigImg = cv::Mat(rows, cols, CV_8UC1, cv::Scalar(0));
 
-        for (size_t i = 0; i < rows; i++) {
+        for (int i = 0; i < rows; i++) {
             uchar *data = matBigImg.ptr<uchar>(i);
-            for (size_t j = 0; j < cols; j++) {
+            for (int j = 0; j < cols; j++) {
                 data[j] = (uchar)inImg[i + rows * j];
             }
         }
@@ -180,7 +183,7 @@ void imreadOpenCV(const char *imagePath, unsigned char outImg[]) {
 }
 
 template <typename T1, typename T2>
-void alphaBlendOpenCV(unsigned char downImg[], int rows, int cols, int channels, const unsigned char topImg[], const T1 *maskImg, int maskImgRows, int maskImgCols, int maskImgChannels, int startX, int startY, T2 *outImg) {
+void alphaBlendOpenCV(const unsigned char downImg[], int rows, int cols, int channels, const unsigned char topImg[], const T1 *maskImg, int maskImgRows, int maskImgCols, int maskImgChannels, int startX, int startY, T2 *outImg) {
     cv::Mat matDownImg, matTopImg, matMaskImg;
     convertToMatContinues(downImg, rows, cols, channels, matDownImg);
     convertToMatContinues(topImg, maskImgRows, maskImgCols, maskImgChannels, matTopImg);

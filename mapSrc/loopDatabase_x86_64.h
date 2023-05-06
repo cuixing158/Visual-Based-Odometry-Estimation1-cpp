@@ -34,6 +34,8 @@
 #endif
 #include "DescManip.h"
 
+#include "opencvAPI.h"
+
 using namespace DBoW3;
 using namespace std;
 
@@ -41,12 +43,23 @@ using namespace std;
 extern Database db;
 
 /** Function Declarations */
-extern void loopDatabase_x86_64_init(const char* imageListFile);
+void loopDatabase_x86_64_init_images(const char* imageListFile, const char* saveDataBaseFile);
+void loopDatabase_x86_64_init_features(const unsigned char* inImageOrFeatures, int rows, int cols, bool isOver, const char* saveDataBaseFile);
 
-extern void loopDatabase_x86_64_load(const char* databaseYmlGz);
+void loopDatabase_writeStep_imst(const unsigned char* inImageOrFeatures, int rows, int cols, const double* keyptsX, const double* keyptsY, bool isOver, const char* saveImageViewStFile);
 
-extern void loopDatabase_x86_64_add(const unsigned char inImage[307200]);  // 480*640=307200, 从matlab传入进来的为480*640 单通道uint8图像
+void loopDatabase_read_imst_numEles(const char* saveImageViewStFile, int* numEles);
 
-extern void loopDatabase_x86_64_query(const unsigned char inImage[307200], double queryResult[20]);  // 返回top10，10*2大小数组给MATLAB，第一列为queryID,第二列为score
+// use follow two function together.
+void loopDatabase_readStep_imst_meta(int idx, int* rows, int* cols);
+void loopDatabase_readStep_imst(int idx, unsigned char* inImageOrFeatures, double* keyptsXY);
+
+void loopDatabase_x86_64_load(const char* databaseYmlGz);
+
+void loopDatabase_x86_64_add_image(const unsigned char* inImage, int rows, int cols);
+void loopDatabase_x86_64_add_features(const unsigned char* inFeatures, int rows, int cols);
+
+void loopDatabase_x86_64_query_image(const unsigned char* inImage, int rows, int cols, double queryResult[20]);     // 返回top10，10*2大小数组给MATLAB，第一列为queryID,第二列为score
+void loopDatabase_x86_64_query_features(const unsigned char* inImage, int rows, int cols, double queryResult[20]);  // 返回top10，10*2大小数组给MATLAB，第一列为queryID,第二列为score
 
 #endif

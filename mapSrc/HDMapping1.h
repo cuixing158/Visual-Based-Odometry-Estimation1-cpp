@@ -44,12 +44,11 @@ public:
 
 class poseGraph {
 public:
-  poseGraph *init(robotics::core::internal::BlockMatrix *iobj_0);
+  poseGraph *init(robotics::core::internal::BlockMatrix &iobj_0);
   void addRelativePose(const double varargin_1[3], double varargin_3,
                        double varargin_4);
   void findEdgeID(const double nodePair[2],
                   ::coder::array<double, 1U> &edgeID) const;
-  void addRelativePose(double varargin_3, double varargin_4);
   void nodeEstimates(::coder::array<double, 2U> &nodeEsts) const;
   poseGraph();
   ~poseGraph();
