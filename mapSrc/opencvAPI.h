@@ -60,6 +60,6 @@ void imwarp2(const T *inImg, int rows, int cols, int channels, double tformA[9],
 void imreadOpenCV(const char *imagePath, unsigned char outImg[]);
 
 template <typename T1, typename T2>
-void alphaBlendOpenCV(unsigned char downImg[], int rows, int cols, int channels, const unsigned char topImg[], const T1 *maskImg, int maskImgRows, int maskImgCols, int maskImgChannels, int startX, int startY, T2 *outImg);
+void alphaBlendOpenCV(const unsigned char downImg[], int rows, int cols, int channels, const unsigned char topImg[], const T1 *maskImg, int maskImgRows, int maskImgCols, int maskImgChannels, int startX, int startY, T2 *outImg);
 
 #endif

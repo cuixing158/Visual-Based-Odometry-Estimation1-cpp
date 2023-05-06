@@ -20,7 +20,7 @@ add_subdirectory(ocv)
 add_subdirectory(src)
 add_subdirectory(mapSrc)
 
-add_executable(main main.cpp)
+add_executable(main main.cpp orbSlam.cpp)
 target_compile_features(main INTERFACE cxx_std_11)
 target_include_directories(main PRIVATE ${OpenCV_INCLUDE_DIRS} mapSrc)
 target_link_libraries(main PRIVATE ${OpenCV_LIBS} mapSrc)

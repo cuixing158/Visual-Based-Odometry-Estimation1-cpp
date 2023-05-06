@@ -18,6 +18,27 @@ struct struct0_T {
   bool isuseGT;
 };
 
+struct uint80m_T {
+  unsigned long chunks[2];
+};
+
+struct uint160m_T {
+  unsigned long chunks[4];
+};
+
+struct d_struct_T {
+  ::coder::array<unsigned char, 2U> Features;
+  ::coder::array<double, 2U> Points;
+};
+
+struct cell_wrap_0 {
+  ::coder::array<unsigned char, 2U> f1;
+};
+
+struct cell_wrap_1 {
+  ::coder::array<double, 2U> f1;
+};
+
 struct struct2_T {
   ::coder::array<unsigned char, 2U> bigImg;
   imref2d_ ref;
@@ -28,7 +49,11 @@ struct struct1_T {
   ::coder::array<double, 2U> vehiclePoses;
   double cumDist;
   double pixelExtentInWorldXY;
-  bool isOver;
+  bool isBuildMap;
+  double buildMapStopFrame;
+  bool isBuildMapOver;
+  bool isLocSuccess;
+  double locVehiclePose[3];
 };
 
 struct imresize {

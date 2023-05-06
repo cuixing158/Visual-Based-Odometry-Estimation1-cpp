@@ -26,7 +26,9 @@ int main(int, char **) {
     // 定义输入输出参数
     buildMapping::struct0_T inputArgs;
     buildMapping::struct1_T inputOutputStruct;
-    inputOutputStruct.isOver = false;
+    inputOutputStruct.isBuildMap = true;
+    inputOutputStruct.buildMapStopFrame = 1118;
+
     std::string imagePathList = "./data/preSavedData/imagePathList.txt";
     std::ifstream inFile(imagePathList, std::ios::in);
     if (!inFile) {
@@ -55,7 +57,8 @@ int main(int, char **) {
         //cv::imshow("HDmap", HDMapImg);
 
         //int key = cv::waitKey(1);
-        if ((inputOutputStruct.isOver) /*|| (key == 27)*/) {
+        if ((inputOutputStruct.isBuildMapOver) /*|| (key == 27)*/) {
+            convertToMat(inputOutputStruct.HDmap.bigImg.data(), inputOutputStruct.HDmap.bigImg.size(0), inputOutputStruct.HDmap.bigImg.size(1), 1, HDMapImg);
             cv::imwrite("HDMapImg.png", HDMapImg);
             break;
         }

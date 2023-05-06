@@ -1,15 +1,9 @@
-/* Copyright 2020 The Mathworks, Inc. */
+/* Copyright 2020-2022 The MathWorks, Inc. */
 /* Copied from fullfile(matlabroot,'extern','include','coder','coder_array','coder_bounded_array.h')
  */
 
 #ifndef _mw_coder_bounded_array_h
 #define _mw_coder_bounded_array_h
-
-#ifdef MATLAB_MEX_FILE
-#include "tmwtypes.h"
-#else
-#include "rtwtypes.h"
-#endif
 
 namespace coder {
 
