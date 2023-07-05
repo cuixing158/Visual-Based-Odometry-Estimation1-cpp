@@ -33,10 +33,10 @@ typedef struct HDMappingWrapper {
 } HDMappingWrapper;
 
 static HDMappingWrapper obj;
-
 HDMappingWrapper* InitInstance(const char* allDataFolder) {
     obj.inputOutputStruct.isBuildMap = true;
     obj.inputOutputStruct.buildMapStopFrame = 1118;  // 此处应当对应用户“建图结束”按钮响应
+
     return &obj;
 }
 
